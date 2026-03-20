@@ -406,7 +406,6 @@ def tab_salary(source_str, dark_mode):
         fig.add_trace(go.Bar(name="Max", x=df["title_clean"],
             y=df["salary_max_clean"], marker_color="#F75F7A"))
         fig.update_layout(**LAYOUT, barmode="group", height=420,
-            margin=dict(l=10,r=10,t=10,b=120),
             xaxis=dict(tickangle=-35, gridcolor="rgba(0,0,0,0)"),
             yaxis=dict(gridcolor="rgba(128,128,128,0.1)"),
             legend=dict(orientation="h", y=1.1))
