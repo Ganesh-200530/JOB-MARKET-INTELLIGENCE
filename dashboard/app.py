@@ -151,7 +151,6 @@ def load_css(dark_mode):
 # ─────────────────────────────────────────
 # DATABASE
 # ─────────────────────────────────────────
-@st.cache_resource
 def get_connection():
     return psycopg2.connect(
         host="localhost",
@@ -161,10 +160,16 @@ def get_connection():
         port="5432"
     )
 
-@st.cache_data(ttl=300)
 def run_query(query):
     conn = get_connection()
-    return pd.read_sql(query, conn)
+    try:
+        result = pd.read_sql(query, conn)
+        return result
+    except Exception as e:
+        print(f"Query error: {e}")
+        return pd.DataFrame()
+    finally:
+        conn.close()
 
 # ─────────────────────────────────────────
 # SIDEBAR
